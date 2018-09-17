@@ -1,11 +1,13 @@
+const { LuisRecognizer } = require('botbuilder-ai');
 const jokeService = require('./jokeservice');
 const cardService = require('./cardService');
 
 
 module.exports = class Bot{
-  constructor(state,adapter){
+  constructor(state,adapter,model){
     this.conversationState = state;
     this.adapter=adapter;
+    this.model = model;
   }
 
   getState(context){
@@ -17,18 +19,26 @@ module.exports = class Bot{
   }
 
   async activityHandler(context) {
+    const state = this.getState(context);
     if (context.activity.type === 'message') {
-        switch(context.activity.text){
+      await this.model
+      .recognize(context)
+      .then(async res => {
+        let intent = state.intent = LuisRecognizer.topIntent(res);
+        switch(intent){
+          case 'TellJoke':
+            var joke = await jokeService.getJoke();
+            return context.sendActivity(`Found this joke: ${joke}`);  
+        }
+      });
+
+        /*switch(context.activity.text){
           case 'show sessions':
             return context.sendActivity({ attachments: [cardService.createAdaptiveCard()] });
-
-          case 'tell joke':
-            var joke = await jokeService.getJoke();
-            return context.sendActivity(joke);
             
           default:
             return context.sendActivity(`I didn't understand ${context.activity.text}. Can you rephrase please?`);
-        }        
+        } */       
     }
   };
 }
