@@ -33,7 +33,12 @@ module.exports = class Bot{
 
           case 'FindSessionList':
             return context.sendActivity({ attachments: [cardService.createAdaptiveCard()] });
-            
+          
+          case 'FindSessionBySpeaker':
+            let speaker =  res.entities['Speaker'];
+            let session = res.entities['Session'];
+            return context.sendActivity(` Yes! Speaker: ${speaker} | Session: ${session}`);            
+          
           default:
             return context.sendActivity(`I didn't understand ${context.activity.text}. Can you rephrase please?`);
         }
