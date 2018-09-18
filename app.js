@@ -9,9 +9,9 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 });
 
 //LUIS Configs
-const appId = '' ;
-const subscriptionKey = '';
-const serviceEndpoint = 'https://westus.api.cognitive.microsoft.com';
+const appId = process.env.LuisAppId; ;
+const subscriptionKey = process.env.LuisSubscriptionId;;
+const serviceEndpoint = process.env.LuisServiceEndpoint;;
 
 const model = new LuisRecognizer({
   appId: appId,
