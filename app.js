@@ -1,3 +1,5 @@
+
+require('dotenv').config();
 const { BotFrameworkAdapter, MemoryStorage, ConversationState } = require('botbuilder');
 const { LuisRecognizer } = require('botbuilder-ai');
 const restify = require('restify');
