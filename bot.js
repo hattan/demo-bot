@@ -25,20 +25,21 @@ module.exports = class Bot{
       .recognize(context)
       .then(async res => {
         let intent = state.intent = LuisRecognizer.topIntent(res);
+
         switch(intent){
           case 'TellJoke':
             var joke = await jokeService.getJoke();
             return context.sendActivity(`Found this joke: ${joke}`);  
-        }
-      });
 
-        /*switch(context.activity.text){
-          case 'show sessions':
+          case 'FindSessionList':
             return context.sendActivity({ attachments: [cardService.createAdaptiveCard()] });
             
           default:
             return context.sendActivity(`I didn't understand ${context.activity.text}. Can you rephrase please?`);
-        } */       
+        }
+
+      });
+            
     }
   };
 }
