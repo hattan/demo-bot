@@ -19,11 +19,36 @@ server.post('/api/messages', async (req, res) => {
   adapter.processActivity(req, res, async (context) => {
     if (context.activity.type === 'message') {
         const state = conversationState.get(context);
-        state.count = ++state.count || 0;
-        return context.sendActivity(`${state.count}- you said : ${context.activity.text}`);
-    } else {
-      return context.sendActivity(`[${context.activity.type} event detected]`);
+        switch(context.activity.text){
+          case 'show sessions':
+            return context.sendActivity(`https://www.socalcodecamp.com/tracks`);
+          case 'tell joke':
+            var joke = await getJoke();
+            return context.sendActivity(joke);
+          default:
+            return context.sendActivity(`I didn't understand ${context.activity.text}. Can you rephrase please?`);
+        }        
     }
   });
 });
 
+function getJoke(){
+  return new Promise(function(resolve,reject){
+    const options = {
+        url: 'https://icanhazdadjoke.com',
+        headers: {
+          'Accept': 'text/plain'
+        }
+      };         
+    request(options, function (error, response, body) {
+        if(error){
+            reject(error);
+        }
+        if(response.statusCode == 200){
+            resolve(body); 
+        }else{
+        reject(new Error(`Invalid http response code ${response.statusCode}`));
+        }
+    });
+  });
+}
