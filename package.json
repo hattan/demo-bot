@@ -2,7 +2,8 @@
     "name": "testbot",
     "dependencies": {
         "botbuilder": "^4.0.0-preview1.1",
-        "restify": "^4.3.0"
+        "restify": "^4.3.0",
+        "botbuilder-ai": "^4.0.0-preview1.2"        
     },
     "scripts": {
         "start": "node app.js"
@@ -10,7 +11,6 @@
     "devDependencies": {
         "@types/node": "^6.0.52",
         "@types/restify": "^2.0.35",
-        "botbuilder-ai": "^4.0.0-preview1.2",
         "dotenv": "^2.0.0"
     }
 }
