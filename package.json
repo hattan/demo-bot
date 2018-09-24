@@ -2,6 +2,7 @@
     "name": "testbot",
     "dependencies": {
         "botbuilder": "^4.0.0-preview1.1",
+        "botbuilder-greeting": "^1.0.1",
         "restify": "^4.3.0"
     },
     "scripts" : {
