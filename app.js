@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { BotFrameworkAdapter, MemoryStorage, ConversationState } = require('botbuilder');
+const BotGreeting = require('botbuilder-greeting');
 const { LuisRecognizer } = require('botbuilder-ai');
 const restify = require('restify');
 const Bot = require('./bot');
@@ -24,6 +25,10 @@ const adapter = new BotFrameworkAdapter({
     appId: process.env.MicrosoftAppId, 
     appPassword: process.env.MicrosoftAppPassword 
 });
+
+adapter.use(new BotGreeting(context => {
+  return `Hello ! I'm your friendly demo bot.`;
+}));
 
 const conversationState = new ConversationState(new MemoryStorage());
 adapter.use(conversationState);
