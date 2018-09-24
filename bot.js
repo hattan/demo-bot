@@ -44,25 +44,8 @@ module.exports = class Bot{
         }
 
       });          
-    } else if (this.isUserJoinEvent(context)){
-      return this.handleNewUser(context);
-    }
+    } 
   };
-  
-  isUserJoinEvent(context){
-    return context.activity.type = "conversationUpdate" && context.activity.membersAdded && context.activity.membersAdded.length > 0;
-  }
-
-  handleNewUser(context){
-    let user = this.getNewUser(context);
-    if(user){
-      return context.sendActivity(`Hello ${user.name}. I'm your friendly demo bot.`);
-    }
-  }
-
-  getNewUser(context){
-    return context.activity.membersAdded.find(member=> member.id != context.activity.recipient.id);
-  }
 }
 
 
