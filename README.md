@@ -15,6 +15,7 @@ node app.js
 - [Manage conversation and user state](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-v4-state?view=azure-bot-service-4.0&tabs=js)
 - [BotBuilder V4 SDK JavaScript Samples](https://github.com/Microsoft/botbuilder-js)
 - [Create bots with Azure CLI](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-tools-az-cli?view=azure-bot-service-3.0)
+- [BotBuilder Greeting Middleware](https://github.com/hattan/botbuilder-greeting)
 
 ## Channel Configuration
 - [Connect a bot to Slack](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-slack?view=azure-bot-service-3.0)
