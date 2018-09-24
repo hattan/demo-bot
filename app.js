@@ -35,9 +35,7 @@ server.post('/api/messages', async (req, res) => {
           return context.sendActivity(`I didn't understand "${context.activity.text}", can you rephrase?`);        
       }
 
-    } else if (isUserJoinEvent(context)){
-      return handleNewUser(context);
-    }
+    } 
   });
 });
 
@@ -60,22 +58,6 @@ function getJoke(){
         }
     });
   });
-}
-
-
-function isUserJoinEvent(context){
-  return context.activity.type = "conversationUpdate" && context.activity.membersAdded && context.activity.membersAdded.length > 0;
-}
-
-function handleNewUser(context){
-  let user = getNewUser(context);
-  if(user){
-    return context.sendActivity(`Hello ${user.name}. I'm your friendly demo bot.`);
-  }
-}
-
-function getNewUser(context){
-  return context.activity.membersAdded.find(member=> member.id != context.activity.recipient.id);
 }
 
 
