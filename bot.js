@@ -10,21 +10,16 @@ module.exports = class Bot{
     this.model = model;
   }
 
-  getState(context){
-    return this.conversationState.get(context);
-  }
-
   async Process(req, res) { 
     return this.adapter.processActivity(req, res,this.activityHandler.bind(this));
   }
 
   async activityHandler(context) {
-    const state = this.getState(context);
     if (context.activity.type === 'message') {
       await this.model
       .recognize(context)
       .then(async res => {
-        let intent = state.intent = LuisRecognizer.topIntent(res);
+        let intent =  LuisRecognizer.topIntent(res);
         switch(intent){
           case 'TellJoke':
             var joke = await jokeService.getJoke();

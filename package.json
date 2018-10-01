@@ -1,10 +1,10 @@
 {
     "name": "testbot",
     "dependencies": {
-        "botbuilder": "^4.0.0-preview1.1",
+        "botbuilder": "^4.0.6",
+        "botbuilder-ai": "^4.0.6",
         "botbuilder-greeting": "^1.0.1",
-        "restify": "^4.3.0",
-        "botbuilder-ai": "^4.0.0-preview1.2"
+        "restify": "^4.3.0"
     },
     "scripts": {
         "start": "node app.js"
