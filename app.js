@@ -16,9 +16,9 @@ const subscriptionKey = process.env.LuisSubscriptionId;;
 const serviceEndpoint = process.env.LuisServiceEndpoint;;
 
 const model = new LuisRecognizer({
-  appId: appId,
-  subscriptionKey: subscriptionKey,
-  serviceEndpoint: serviceEndpoint
+  applicationId: appId,
+  endpointKey: subscriptionKey,
+  azureRegion: process.env.region
 });
 
 const adapter = new BotFrameworkAdapter({ 
@@ -31,7 +31,6 @@ adapter.use(new BotGreeting(context => {
 }));
 
 const conversationState = new ConversationState(new MemoryStorage());
-adapter.use(conversationState);
 
 const bot = new Bot(conversationState,adapter,model);
 server.post('/api/messages',bot.Process.bind(bot));
