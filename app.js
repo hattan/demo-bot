@@ -1,7 +1,12 @@
 const {BotFrameworkAdapter,ActivityTypes,MemoryStorage,ConversationState} = require('botbuilder');
+const BotGreeting = require('botbuilder-greeting');
+
 let server = require('restify').createServer();
 
 const adapter = new BotFrameworkAdapter();
+adapter.use(new BotGreeting(context => {
+  return `Hi I'm your friendly bot`;
+}));
 
 server.listen(process.env.port || process.env.PORT || 3978, function () {
     console.log(`${server.name} listening to ${server.url}`);
@@ -26,28 +31,5 @@ server.post('/api/messages', async (req, res) => {
       await context.sendActivity(`${count} - You said ${context.activity.text}`);
       await save(context,count);
     }
-    else if(isUserJoinEvent(context)){
-      await handleNewUser(context);
-    }
-
   });
-
 });
-
-function isUserJoinEvent(context){
-  return context.activity.type == "conversationUpdate" && context.activity.membersAdded && context.activity.membersAdded.length > 0;
-}
-
-function handleNewUser(context){
-  let user = getNewUser(context);
-  if( (user && !isWebChat(context)) || (!user && isWebChat(context))){
-    return context.sendActivity(`Hello ! I'm your friendly demo bot.`);
-  }
-}
-
-function isWebChat(context){
-    return context.activity.channelId == 'webchat';
-}
-function getNewUser(context){
-  return context.activity.membersAdded.find(member=> member.id != context.activity.recipient.id);
-}
