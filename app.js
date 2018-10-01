@@ -12,8 +12,6 @@ adapter.use(new BotGreeting(context => {
   return `Hello ! I'm your friendly demo bot.`;
 }));
 
-const conversationState = new ConversationState(new MemoryStorage());
-adapter.use(conversationState);
 
 let server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -23,7 +21,6 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 server.post('/api/messages', async (req, res) => {
   adapter.processActivity(req,res, async context =>{
     if(context.activity.type == "message"){
-      let state = conversationState.get(context);
 
       switch(context.activity.text){
         case 'show sessions':
