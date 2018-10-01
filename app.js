@@ -19,7 +19,6 @@ adapter.use(new BotGreeting(context => {
 
 
 const conversationState = new ConversationState(new MemoryStorage());
-adapter.use(conversationState);
 
 const bot = new Bot(conversationState,adapter);
 server.post('/api/messages',bot.Process.bind(bot));
