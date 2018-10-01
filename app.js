@@ -5,6 +5,6 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 });
 
 server.post('/api/messages', async (req, res) => {
-  res.send("Hello World");
+  return "Hello World"
 });
 
